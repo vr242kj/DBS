@@ -1,0 +1,390 @@
+CREATE TABLE Country
+( country_id integer NOT NULL PRIMARY KEY,
+  country_name varchar(50) NOT NULL,
+  capital varchar(50) not null,
+  national_currency varchar(10) not null,
+  tax_free integer not null
+);
+
+CREATE TABLE Hotel
+( hotel_id integer NOT NULL PRIMARY KEY,
+  hotel_name varchar(50) NOT NULL,
+  number_of_stars  integer not null,
+  additional_service varchar(150) not null,
+  how_to_get_there varchar(50)
+);
+
+CREATE TABLE Price
+( price_id integer NOT NULL PRIMARY KEY,
+  price_per_day float NOT NULL
+);
+
+CREATE TABLE Manager
+( manager_id integer NOT NULL PRIMARY KEY,
+  first_name varchar(50) NOT NULL,
+  surname varchar(50) not null,
+  post varchar(30) not null,
+  tel varchar(20) not null,
+  email varchar(15) not null
+);
+
+
+CREATE TABLE Tour
+( tour_id integer NOT NULL PRIMARY KEY,
+  arrival_date date NOT NULL,
+  departure_date date not null,
+  amount_of_days integer not null,
+  hot_tours varchar(3)
+);
+
+ALTER TABLE Hotel ADD(
+  price_id integer,
+  country_id integer,
+  FOREIGN KEY(price_id) REFERENCES Price(price_id),
+  FOREIGN KEY(country_id) REFERENCES Country(country_id)
+  );
+  
+  ALTER TABLE Tour ADD(
+  hotel_id integer,
+  FOREIGN KEY(hotel_id) REFERENCES Hotel(hotel_id)
+  );
+   
+  CREATE TABLE Manager_tour(
+  manager_id integer,
+  tour_id integer,
+  FOREIGN KEY(manager_id) REFERENCES Manager(manager_id),
+  FOREIGN KEY(tour_id) REFERENCES Tour(tour_id)
+  );
+  
+  --odovzdavanie-2
+  
+ INSERT INTO Country
+(country_id, country_name, capital, national_currency, tax_free)
+VALUES
+(1, 'Croatia', 'Zagreb', 'Kuna', '15' ); 
+
+ INSERT INTO Country
+(country_id, country_name, capital, national_currency, tax_free)
+VALUES
+(2, 'Italy', 'Rome', 'Euro ', '22' ); 
+
+ INSERT INTO Country
+(country_id, country_name, capital, national_currency, tax_free)
+VALUES
+(3, 'Portugal', 'Lisbon', 'Euro ', '23' ); 
+  
+ INSERT INTO Country
+(country_id, country_name, capital, national_currency, tax_free)
+VALUES
+(4, 'Greece', 'Athens', 'Euro ', '24' ); 
+
+ INSERT INTO Country
+(country_id, country_name, capital, national_currency, tax_free)
+VALUES
+(5, 'Turkey', 'Ankara', 'Turkish lira ', '18' ); 
+
+ALTER TABLE Country
+MODIFY national_currency VARCHAR(20);
+
+INSERT INTO Hotel
+(hotel_id, hotel_name, number_of_stars, additional_service, how_to_get_there)
+VALUES
+(1, 'Melia Coral', '5', 'Free Wi-Fi / Free Parking / Buffet Breakfast / Air Conditioning / Pool / Beach View', 'Pula Airport' );
+  
+INSERT INTO Hotel
+(hotel_id, hotel_name, number_of_stars, additional_service, how_to_get_there)
+VALUES
+(2, 'Hotel Berna', '4', 'Free Wi-Fi / Free Parking / Buffet Breakfast / Air Conditioning ', 'Milan Centrale' );
+
+INSERT INTO Hotel
+(hotel_id, hotel_name, number_of_stars, additional_service, how_to_get_there)
+VALUES
+(3, 'BessaHotel Liberdade', '4', 'Free Wi-Fi / Free Parking / Buffet Breakfast / Air Conditioning / Pool / A restaurant ', ' Portela Airport' );
+  
+  INSERT INTO Hotel
+(hotel_id, hotel_name, number_of_stars, additional_service, how_to_get_there)
+VALUES
+(4, 'Melia Athens', '4', 'Free Wi-Fi / Buffet Breakfast / Air Conditioning / Pool / A restaurant ', 'Athens International Airport' );
+  
+   
+    INSERT INTO Hotel
+(hotel_id, hotel_name, number_of_stars, additional_service, how_to_get_there)
+VALUES
+(5, 'Crowne Plaza Hotel Antalya', '5', 'Free Wi-Fi / Buffet Breakfast / Air Conditioning / Pool / Free Parking / Beach View', 'Athens International Airport' );
+
+/* INSERT INTO Hotel
+(hotel_id, hotel_name, number_of_stars, additional_service, how_to_get_there)
+VALUES
+(6, 'Ibis Styles Stuttgart', '3', 'Free Wi-Fi / Buffet Breakfast / Air Conditioning / Parking / A restaurant', 'Athens International Airport' );
+UPDATE Hotel SET how_to_get_there='Stuttgart Airport'  WHERE hotel_id=6;
+DELETE FROM Hotel WHERE hotel_id=6;*/
+
+INSERT INTO Hotel
+(hotel_id, hotel_name, number_of_stars, additional_service, how_to_get_there)
+VALUES
+(6, 'Esplanade Zagreb Hotel', '5', 'Free Wi-Fi / Buffet Breakfast / Air Conditioning / Parking / A restaurant / Transfer from/to the airport', 'Pula Airport' );
+
+INSERT INTO Manager
+(manager_id, first_name, surname, post, tel, email)
+VALUES
+(1, 'Daniel', 'Brown', 'Top managers', '+447800767690', 'daniel.brown@gmail.com' );
+
+INSERT INTO Manager
+(manager_id, first_name, surname, post, tel, email)
+VALUES
+(2, 'Harry', 'Evans', 'Middle manager', '+447833545691', 'harry.evans@gmail.com' );
+
+INSERT INTO Manager
+(manager_id, first_name, surname, post, tel, email)
+VALUES
+(3, 'Emma', 'Wilson', 'Supervisory managers', '+447811978666', 'emma.wilson@yandex.ru' );
+
+INSERT INTO Manager
+(manager_id, first_name, surname, post, tel, email)
+VALUES
+(4, 'Olivia', 'Miller', 'Individual contributors', '+447831578313', 'olivia.miller@rambler.ru' );
+
+INSERT INTO Manager
+(manager_id, first_name, surname, post, tel, email)
+VALUES
+(5, 'James', 'Smith', 'Individual contributors', '+447888574398', 'james.smith@list.ru' );
+
+INSERT INTO Tour
+(tour_id, arrival_date, departure_date, amount_of_days, hot_tours)
+VALUES
+(1, '13-09-2018', '20-09-2018', '7', 'No' );
+
+INSERT INTO Tour
+(tour_id, arrival_date, departure_date, amount_of_days, hot_tours)
+VALUES
+(2, '30-06-2018', '14-07-2018', '15', 'Yes' );
+
+INSERT INTO Tour
+(tour_id, arrival_date, departure_date, amount_of_days, hot_tours)
+VALUES
+(3, '16-08-2018', '23-08-2018', '7', 'Yes' );
+
+INSERT INTO Tour
+(tour_id, arrival_date, departure_date, amount_of_days, hot_tours)
+VALUES
+(4, '5-07-2018', '12-07-2018', '7', 'No' );
+
+INSERT INTO Tour
+(tour_id, arrival_date, departure_date, amount_of_days, hot_tours)
+VALUES
+(5, '18-10-2018', '1-11-2018', '14', 'Yes' );
+
+INSERT INTO Tour
+(tour_id, arrival_date, departure_date, amount_of_days, hot_tours)
+VALUES
+(6, '6-03-2018', '21-03-2018', '15', 'No' );
+DELETE FROM tour
+WHERE tour_id = 6;
+
+INSERT INTO Price
+(price_id, price_per_day)
+VALUES
+(1, '90' );
+
+INSERT INTO Price
+(price_id, price_per_day)
+VALUES
+(2, '121' );
+
+INSERT INTO Price
+(price_id, price_per_day)
+VALUES
+(3, '122' );
+
+INSERT INTO Price
+(price_id, price_per_day)
+VALUES
+(4, '114' );
+
+INSERT INTO Price
+(price_id, price_per_day)
+VALUES
+(5, '54' );
+
+INSERT INTO Price
+(price_id, price_per_day)
+VALUES
+(6, '99' );
+
+UPDATE Hotel SET price_id='1'  WHERE hotel_id=1;
+UPDATE Hotel SET country_id='1'  WHERE hotel_id=1;
+UPDATE Hotel SET price_id='2'  WHERE hotel_id=2;
+UPDATE Hotel SET country_id='2'  WHERE hotel_id=2;
+UPDATE Hotel SET price_id='3'  WHERE hotel_id=3;
+UPDATE Hotel SET country_id='3'  WHERE hotel_id=3;
+UPDATE Hotel SET price_id='4'  WHERE hotel_id=4;
+UPDATE Hotel SET country_id='4'  WHERE hotel_id=4;
+UPDATE Hotel SET price_id='5'  WHERE hotel_id=5;
+UPDATE Hotel SET country_id='5'  WHERE hotel_id=5;
+
+--UPDATE Hotel SET price_id='5'  WHERE hotel_id=6;
+UPDATE Hotel SET country_id='1'  WHERE hotel_id=6;
+
+UPDATE Tour SET hotel_id='1'  WHERE tour_id=1;
+UPDATE Tour SET hotel_id='2'  WHERE tour_id=2;
+UPDATE Tour SET hotel_id='3'  WHERE tour_id=3;
+UPDATE Tour SET hotel_id='4'  WHERE tour_id=4;
+UPDATE Tour SET hotel_id='5'  WHERE tour_id=5;
+UPDATE Tour SET hotel_id='6'  WHERE tour_id=6;
+
+
+DELETE FROM MANAGER_TOUR;
+
+INSERT INTO MANAGER_TOUR
+(manager_id, tour_id)
+VALUES
+(1, 1 );
+INSERT INTO MANAGER_TOUR
+(manager_id, tour_id)
+VALUES
+(2, 2 );
+UPDATE MANAGER_TOUR SET manager_id=''  WHERE tour_id=2;
+UPDATE MANAGER_TOUR SET manager_id='4'  WHERE tour_id=2;
+INSERT INTO MANAGER_TOUR
+(manager_id, tour_id)
+VALUES
+(3, 3 );
+INSERT INTO MANAGER_TOUR
+(manager_id, tour_id)
+VALUES
+(4, 4 );
+/*INSERT INTO MANAGER_TOUR
+(manager_id, tour_id)
+VALUES
+(4, 2 );*/
+INSERT INTO MANAGER_TOUR
+(manager_id, tour_id)
+VALUES
+(5, 5 );
+
+--7 pohladov
+--1. Show all hotels with 5 stars
+CREATE VIEW ask1 AS 
+select hotel_name from Hotel where number_of_stars = '4' order by hotel_name;
+--2. Show hotel near Ellinikon International Airport
+CREATE VIEW ask2 AS 
+select * from Hotel where how_to_get_there = 'Ellinikon International Airport' order by hotel_name;
+--3. 1x joining of 2 tables, Show countries with hotels
+CREATE VIEW ask3 AS
+SELECT Country.country_id,Hotel.hotel_id, Country.country_name, Hotel.hotel_name
+FROM Country
+FULL JOIN Hotel
+ON Country.country_id = Hotel.country_id;
+--DROP VIEW ask3; 
+--4. 1x joining of 3 tables, Show countries, hotels and price
+CREATE VIEW ask4 AS
+SELECT  Country.country_name, Hotel.hotel_name, Price.price_per_day
+FROM Hotel
+INNER JOIN COUNTRY
+ON Country.country_id = Hotel.country_id
+INNER JOIN Price
+ON Price.price_id = Hotel.price_id;
+--5. 1x outer join, Show hotels with prices
+CREATE VIEW ask5 AS
+SELECT Price.price_id, Price.price_per_day, Hotel.hotel_name
+FROM Price
+ INNER JOIN Hotel
+ON price.price_id = Hotel.PRICE_ID;
+/*SELECT Manager.manager_id, Manager.first_name, Manager.surname, Tour.tour_id
+FROM MANAGER_TOUR
+LEFT OUTER JOIN  TOUR
+ON MANAGER_TOUR.tour_id = Tour.tour_id
+LEFT OUTER JOIN  MANAGER
+ON MANAGER_TOUR.manager_id = MANAGER.manager_id;
+DELETE FROM MANAGER_TOUR WHERE manager_id=2;*/
+--6. Show how much tours have price bigger than 100
+CREATE VIEW ask6 AS 
+/*SELECT price_per_day, price_id,  COUNT(price_per_day) AS "Expensive trip"
+FROM Price WHERE price_per_day > 100
+GROUP BY price_per_day, price_id;*/
+SELECT   COUNT(price_per_day) AS "Expensive trip"
+FROM Price
+WHERE price_per_day > 100;
+
+--7. Show average number of days in table Tour
+CREATE VIEW ask7 AS 
+/*SELECT tour_id, arrival_date,departure_date,  SUM(amount_of_days) AS "All days"
+FROM Tour 
+GROUP BY tour_id, arrival_date, departure_date;*/
+SELECT AVG( amount_of_days) AS "Average number of days"
+FROM Tour;
+--8. ?loha/pohlad ktory ma  zauj?mav? odpoved, Show country which start at first letter 'C', Hotel which has 5 stars and 7/15 amount of days
+SELECT country_name, hotel_name, number_of_stars, amount_of_days
+FROM Hotel
+INNER JOIN COUNTRY
+ON Country.country_id = Hotel.country_id
+INNER JOIN Tour
+ON Tour.hotel_id = Hotel.hotel_id
+WHERE 
+Country.Country_Name LIKE 'C%' AND
+Hotel.number_of_stars = '5' AND
+--Tour.amount_of_days = '7';
+Tour.amount_of_days = '15';
+
+--Fin?lne odovzd?vanie zadania
+--9. Show me all country_id with no dublicate (duplik?ty), which are in two tables Country and Hotel
+CREATE VIEW ask9 AS 
+/*SELECT country_name FROM Country
+WHERE country_id = 1
+UNION
+SELECT hotel_name FROM Hotel
+WHERE country_id = 1
+ORDER BY country_name;*/
+SELECT country_id
+FROM Country
+UNION 
+SELECT country_id
+FROM  Hotel;
+--DROP VIEW ask8;
+--10. Show arrival_date, where Amount_Of_Days is minimal
+CREATE VIEW ask10 AS
+SELECT arrival_date
+FROM Tour
+WHERE Amount_Of_Days =
+(SELECT  min(Amount_Of_Days)
+ FROM Tour);
+ --11. Show me hotel_id and hotel_name, where number_of_stars= '5'
+ CREATE VIEW ask11 AS
+SELECT hotel_id, hotel_name 
+FROM Hotel 
+WHERE hotel_name IN (SELECT hotel_name 
+FROM Hotel 
+WHERE number_of_stars= '5');
+--WHERE price_id IS NULL);
+--12. Skript na vytvorenie triggeru
+create sequence Country_seq start with 6 increment by 1;
+--DROP SEQUENCE Country_seq;
+create trigger Country_trigger
+before insert on Country
+for each row
+   begin
+     select Country_seq.nextval into :new.country_id from dual;
+   end;
+   INSERT INTO Country (country_name, capital ,National_Currency, Tax_Free)
+VALUES ('BLAKE',  'Alin', 'Euro', '16');
+--DELETE FROM Country
+--WHERE country_name = 'BLAKE';
+
+
+--DELETE FROM Hotel
+--WHERE hotel_name = 'BLAKE';
+--Trigger2
+create sequence Hotel_seq start with 7 increment by 1;
+--DROP SEQUENCE Hotel_seq;
+create trigger Hotel_trigger
+before insert on Hotel
+for each row
+   begin
+     select Hotel_seq.nextval into :new.hotel_id from dual;
+   end;
+INSERT INTO Hotel (hotel_name, number_of_stars,additional_service, how_to_get_there)
+VALUES ('BLAKE',  '3', 'Free Wi_Fi', 'Alermo');
+--13. Skript na zmyslupln? triger
+
+    
+
